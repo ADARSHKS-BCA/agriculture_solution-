@@ -1,0 +1,553 @@
+/* ==================================================================
+   AgriShield AI — Custom Styles
+   Agricultural theme: greens, earth tones, modern card design
+   ================================================================== */
+
+/* ---- CSS Custom Properties ---- */
+:root {
+    --agri-primary: #2d6a4f;
+    --agri-primary-dark: #1b4332;
+    --agri-primary-light: #52b788;
+    --agri-accent: #40916c;
+    --agri-accent-glow: rgba(64, 145, 108, 0.15);
+    --agri-bg: #f0f5f1;
+    --agri-card-bg: #ffffff;
+    --agri-text: #1a1a2e;
+    --agri-text-muted: #6b7280;
+    --agri-border: #e2e8f0;
+    --agri-hero-gradient: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+    --agri-shadow: 0 4px 24px rgba(45, 106, 79, 0.08);
+    --agri-shadow-hover: 0 8px 32px rgba(45, 106, 79, 0.14);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Base ---- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--agri-bg);
+    color: var(--agri-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+.text-accent {
+    color: var(--agri-primary-light) !important;
+}
+
+.bg-accent-subtle {
+    background: var(--agri-accent-glow) !important;
+}
+
+.x-small {
+    font-size: 0.75rem;
+}
+
+/* ---- Navbar ---- */
+.agri-navbar {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--agri-border);
+    padding: 0.75rem 0;
+    z-index: 1050;
+}
+
+.agri-navbar .navbar-brand {
+    color: var(--agri-primary-dark);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.agri-navbar .nav-link {
+    color: var(--agri-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem !important;
+}
+
+.agri-navbar .nav-link:hover {
+    color: var(--agri-primary);
+    background: var(--agri-accent-glow);
+}
+
+.agri-navbar .btn-light {
+    background: var(--agri-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.agri-navbar .btn-light:hover {
+    background: var(--agri-primary-dark);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* ---- Hero Section ---- */
+.hero-section {
+    background: var(--agri-hero-gradient);
+    padding: 4.5rem 0 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(82, 183, 136, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.12);
+    color: #d8f3dc;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+    color: #b7e4c7;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.hero-desc {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 580px;
+}
+
+/* ---- Cards ---- */
+.card {
+    border: 1px solid var(--agri-border);
+    border-radius: var(--radius);
+    box-shadow: var(--agri-shadow);
+    transition: var(--transition);
+    background: var(--agri-card-bg);
+}
+
+.upload-card {
+    border: none;
+    box-shadow: var(--agri-shadow);
+}
+
+.upload-card:hover {
+    box-shadow: var(--agri-shadow-hover);
+}
+
+.info-card {
+    background: linear-gradient(135deg, rgba(45, 106, 79, 0.04) 0%, rgba(64, 145, 108, 0.06) 100%);
+    border: 1px dashed var(--agri-primary-light);
+}
+
+.result-card {
+    border: none;
+    box-shadow: var(--agri-shadow);
+}
+
+.result-card:hover {
+    box-shadow: var(--agri-shadow-hover);
+    transform: translateY(-2px);
+}
+
+/* ---- Drag & Drop Zone ---- */
+.drop-zone {
+    position: relative;
+    border: 2px dashed var(--agri-primary-light);
+    border-radius: var(--radius-sm);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: linear-gradient(135deg, rgba(45, 106, 79, 0.02) 0%, rgba(82, 183, 136, 0.04) 100%);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--agri-primary);
+    background: var(--agri-accent-glow);
+    transform: scale(1.01);
+}
+
+.drop-zone-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.drop-zone-preview {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+}
+
+.drop-zone-remove {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 5;
+    border-radius: 50px;
+}
+
+/* ---- Form Styles ---- */
+.form-control,
+.form-select {
+    border: 1.5px solid var(--agri-border);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--agri-primary-light);
+    box-shadow: 0 0 0 4px var(--agri-accent-glow);
+}
+
+/* ---- Primary Button ---- */
+.btn-primary-agri {
+    background: var(--agri-hero-gradient);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    padding: 0.85rem 2rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-agri::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.btn-primary-agri:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(45, 106, 79, 0.3);
+}
+
+.btn-primary-agri:hover::after {
+    opacity: 1;
+}
+
+.btn-primary-agri:active {
+    transform: translateY(0);
+}
+
+.btn-primary-agri:disabled {
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* ---- Result Page ---- */
+.result-section {
+    min-height: 80vh;
+}
+
+.disease-name {
+    color: var(--agri-primary-dark);
+    font-size: 1.35rem;
+    line-height: 1.4;
+}
+
+.confidence-bar {
+    border-radius: 50px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+.confidence-bar .progress-bar {
+    border-radius: 50px;
+}
+
+.uploaded-image-wrapper {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #f8f9fa;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploaded-image-wrapper img {
+    object-fit: cover;
+    max-height: 300px;
+}
+
+/* ---- Weather Metrics ---- */
+.weather-metric {
+    background: linear-gradient(135deg, rgba(45, 106, 79, 0.03) 0%, rgba(82, 183, 136, 0.06) 100%);
+    border: 1px solid var(--agri-border);
+    transition: var(--transition);
+}
+
+.weather-metric:hover {
+    background: var(--agri-accent-glow);
+    transform: translateY(-2px);
+    box-shadow: var(--agri-shadow);
+}
+
+/* ---- Risk Meter ---- */
+.risk-meter-track {
+    height: 10px;
+    border-radius: 50px;
+    background: #e9ecef;
+    overflow: hidden;
+}
+
+.risk-meter-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.risk-badge {
+    border-radius: 50px;
+}
+
+/* ---- Treatment Sections ---- */
+.treatment-section {
+    border: 1px solid var(--agri-border);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
+    transition: var(--transition);
+}
+
+.treatment-section:hover {
+    border-color: var(--agri-primary-light);
+    box-shadow: var(--agri-shadow);
+}
+
+.treatment-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.treatment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.treatment-list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.treatment-list li:last-child {
+    border-bottom: none;
+}
+
+.treatment-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--agri-primary-light);
+}
+
+/* ---- Loading Overlay ---- */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 67, 50, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---- Footer ---- */
+.agri-footer {
+    background: var(--agri-card-bg);
+    border-top: 1px solid var(--agri-border);
+    margin-top: auto;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ---- Toast Styles ---- */
+.toast-agri {
+    border-radius: var(--radius-sm);
+    border: none;
+    box-shadow: var(--agri-shadow-hover);
+    font-family: 'Inter', sans-serif;
+}
+
+.toast-agri.toast-success {
+    background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+    color: #fff;
+}
+
+.toast-agri.toast-error {
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
+    color: #fff;
+}
+
+/* ---- Error Alert ---- */
+.alert-api-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    border-radius: var(--radius-sm);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 991.98px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-section {
+        padding: 3rem 0 2.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-tagline {
+        font-size: 1rem;
+    }
+
+    .hero-section {
+        padding: 2.5rem 0 2rem;
+    }
+
+    .card-body {
+        padding: 1.25rem !important;
+    }
+
+    .weather-metric {
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .drop-zone {
+        padding: 1.5rem 1rem;
+        min-height: 140px;
+    }
+}
+
+/* ---- Print Styles ---- */
+@media print {
+
+    .agri-navbar,
+    .agri-footer,
+    .btn,
+    .toast-container {
+        display: none !important;
+    }
+
+    .result-card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        break-inside: avoid;
+    }
+
+    .fade-in {
+        opacity: 1 !important;
+        animation: none !important;
+    }
+
+    body {
+        background: #fff !important;
+    }
+}

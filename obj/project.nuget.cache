@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "dgSpecHash": "YNEvhNRHtjE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\adars\\.nuget\\packages\\microsoft.ml.onnxruntime\\1.17.1\\microsoft.ml.onnxruntime.1.17.1.nupkg.sha512",
+    "C:\\Users\\adars\\.nuget\\packages\\microsoft.ml.onnxruntime.managed\\1.17.1\\microsoft.ml.onnxruntime.managed.1.17.1.nupkg.sha512",
+    "C:\\Users\\adars\\.nuget\\packages\\sixlabors.imagesharp\\3.1.4\\sixlabors.imagesharp.3.1.4.nupkg.sha512",
+    "C:\\Users\\adars\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-2cmq-823j-5qj8",
+      "projectPath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-63p8-c4ww-9cg7",
+      "projectPath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-qxrv-gp6x-rc23",
+      "projectPath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-rxmq-m78w-7wmc",
+      "projectPath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\adars\\OneDrive\\Desktop\\Agriculture\\Agriculture.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}
