@@ -1,5 +1,5 @@
 ﻿/* ==================================================================
-   AgriShield AI — Site JavaScript
+   AgriShield — Site JavaScript
    Drag-and-drop, validation, loading states, toasts, animations
    ================================================================== */
 
@@ -150,6 +150,75 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submitSpinner) submitSpinner.classList.remove('d-none');
             if (overlay) overlay.classList.remove('d-none');
         });
+    }
+
+    // ---- Geolocation Handling ----
+    const btnGeo = document.getElementById('btnGeolocation');
+    const cityInput = document.getElementById('cityInput');
+    const latInput = document.getElementById('latInput');
+    const lonInput = document.getElementById('lonInput');
+    const geoStatus = document.getElementById('geoStatus');
+
+    if (btnGeo) {
+        btnGeo.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                updateGeoStatus("Geolocation is not supported by your browser.", "text-danger");
+                return;
+            }
+
+            updateGeoStatus("Locating...", "text-info");
+            btnGeo.disabled = true;
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    if (latInput) latInput.value = lat;
+                    if (lonInput) lonInput.value = lon;
+
+                    updateGeoStatus(`Coordinates acquired: ${lat.toFixed(4)}, ${lon.toFixed(4)}`, "text-success");
+
+                    // Attempt reverse geocoding to fill the city name for user convenience
+                    try {
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`, {
+                            headers: {
+                                'Accept-Language': 'en'
+                            }
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const actCity = data.address.city || data.address.town || data.address.village || data.address.county || "";
+                            if (actCity && cityInput) {
+                                cityInput.value = actCity;
+                            }
+                        }
+                    } catch (err) {
+                        console.warn("Reverse geocoding failed", err);
+                    }
+
+                    btnGeo.disabled = false;
+                },
+                (error) => {
+                    let msg = "Unable to retrieve location.";
+                    if (error.code === error.PERMISSION_DENIED) msg = "Location access denied by user.";
+                    else if (error.code === error.POSITION_UNAVAILABLE) msg = "Location information unavailable.";
+                    else if (error.code === error.TIMEOUT) msg = "Location request timed out.";
+
+                    updateGeoStatus(msg, "text-danger");
+                    btnGeo.disabled = false;
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        });
+    }
+
+    function updateGeoStatus(message, className) {
+        if (!geoStatus) return;
+        geoStatus.textContent = message;
+        geoStatus.className = `small mt-1 ${className}`;
+        geoStatus.classList.remove('d-none');
     }
 
 });

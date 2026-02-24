@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] — AgriShield AI</title>
-    <meta name="description" content="AI-powered crop disease early detection and risk prediction system for modern agriculture." />
+    <title>@ViewData["Title"] — AgriShield</title>
+    <meta name="description" content="Crop disease early detection and risk prediction system for modern agriculture." />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,30 +20,40 @@
     <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="bg-light">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top agri-navbar">
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top py-3">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
-                <i class="bi bi-shield-check fs-4"></i>
-                <span class="fw-bold">AgriShield AI</span>
+            <a class="navbar-brand d-flex align-items-center text-dark text-decoration-none" asp-controller="Home" asp-action="Index">
+                <span class="fw-bold fs-5 tracking-tight">AgriShield</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMain">
-                <ul class="navbar-nav ms-auto align-items-center gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
-                            <i class="bi bi-house-door me-1"></i>Home
-                        </a>
-                    </li>
-                    @if (ViewData["ShowAnalyzeAgain"] != null)
+                <ul class="navbar-nav ms-auto align-items-center gap-2 fw-medium text-secondary">
+                    @if (User.Identity?.IsAuthenticated == true)
                     {
                         <li class="nav-item">
-                            <a class="btn btn-light btn-sm px-3 fw-semibold" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-arrow-repeat me-1"></i>Analyze Again
-                            </a>
+                            <a class="nav-link text-dark px-3" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark px-3" asp-controller="Dashboard" asp-action="Index">History</a> <!-- Assuming History points to Dashboard for now -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark px-3" href="#">Profile</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-outline-dark btn-sm px-4 fw-semibold rounded-1" asp-controller="Auth" asp-action="Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-medium" asp-area="" asp-controller="Scan" asp-action="Index">Scan</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-dark btn-sm px-4 fw-semibold rounded-1" asp-controller="Auth" asp-action="Signup">Sign up</a>
                         </li>
                     }
                 </ul>
@@ -58,7 +68,6 @@
                 <span class="visually-hidden">Analyzing...</span>
             </div>
             <p class="text-light fs-5 fw-semibold">Analyzing crop image...</p>
-            <p class="text-light text-opacity-75 small">Our AI is inspecting leaf patterns</p>
         </div>
     </div>
 
@@ -71,15 +80,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="agri-footer text-center py-4">
+    <footer class="bg-white border-top text-center py-4 mt-auto">
         <div class="container">
-            <p class="mb-1 small">
-                <i class="bi bi-cpu me-1"></i>
-                <strong>AgriShield AI</strong> — Hackathon Project · AI-Powered Crop Disease Detection
-            </p>
-            <p class="mb-0 text-muted x-small">v1.0.0 · Built with .NET 8 &amp; Bootstrap 5</p>
+            <p class="mb-0 text-muted small">AgriShield &copy; 2025</p>
         </div>
     </footer>
+
+    <!-- jQuery (Required for ASP.NET Validation) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,64 @@
+@model Agriculture.Models.SignupViewModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus text-primary fs-1 mb-3"></i>
+                    <h2 class="fw-bold">Create Account</h2>
+                    <p class="text-muted">Start protecting your crops with AI</p>
+                </div>
+
+                <form asp-controller="Auth" asp-action="Signup" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small fw-semibold"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label fw-semibold">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
+                            <input asp-for="Username" class="form-control border-start-0 ps-0" placeholder="Choose a username" required>
+                        </div>
+                        <span asp-validation-for="Username" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-semibold">Email address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                            <input asp-for="Email" type="email" class="form-control border-start-0 ps-0" placeholder="name@example.com" required>
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label fw-semibold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-key text-muted"></i></span>
+                            <input asp-for="Password" type="password" class="form-control border-start-0 ps-0" placeholder="Minimum 6 characters" required>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>You will need to verify your email before logging in.</div>
+                    </div>
+
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm fw-bold">
+                            Create Account
+                        </button>
+                    </div>
+
+                    <div class="text-center text-muted small">
+                        Already have an account? <a asp-controller="Auth" asp-action="Login" class="fw-semibold text-decoration-none">Log in here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Scan";
+}
+@model Agriculture.Models.CropAnalysisViewModel
+
+<div class="container py-5">
+    <!-- Header -->
+    <div class="row mb-5 justify-content-center text-center">
+        <div class="col-md-8">
+            <h1 class="fw-bold fs-3 text-dark mb-2">Crop Disease Analysis</h1>
+            <p class="text-muted">Upload a photo of your crop leaf for disease detection, risk assessment, and treatment recommendations.</p>
+        </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border border-light shadow-sm bg-white rounded-2">
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Analyze" method="post" enctype="multipart/form-data" id="analysisForm" novalidate>
+                        <!-- Validation Summary -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
+
+                        <!-- Drag & Drop Upload -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark">
+                                Crop Leaf Image <span class="text-danger">*</span>
+                            </label>
+                            <div class="drop-zone border rounded-2 bg-light text-center p-5 position-relative" id="dropZone" style="border-style: dashed !important; border-width: 2px !important;">
+                                <div class="drop-zone-prompt" id="dropPrompt">
+                                    <i class="bi bi-cloud-upload fs-2 text-secondary mb-2"></i>
+                                    <p class="mb-1 fw-medium text-dark">Drag &amp; drop your image here</p>
+                                    <p class="small text-muted mb-2">or click to browse</p>
+                                    <span class="badge border text-muted fw-normal">PNG, JPG, JPEG &middot; Max 5 MB</span>
+                                </div>
+                                <img id="imagePreview" class="img-fluid rounded-2 mt-3 d-none mx-auto" style="max-height: 250px;" alt="Preview" />
+                                <button type="button" id="removeImage" class="btn btn-sm btn-outline-danger mt-3 d-none mx-auto">
+                                    Remove Image
+                                </button>
+                                <input type="file" name="ImageFile" id="imageInput"
+                                       class="position-absolute w-100 h-100 top-0 start-0 opacity-0" accept="image/*" style="cursor: pointer;" />
+                            </div>
+                            <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                            <div id="fileError" class="text-danger small mt-1 d-none"></div>
+                        </div>
+
+                        <!-- Crop Selection & Location Row -->
+                        <div class="row g-3 mb-4">
+                            <!-- Crop Selection -->
+                            <div class="col-md-6">
+                                <label asp-for="CropType" class="form-label fw-semibold text-dark">
+                                    Crop Type <span class="text-danger">*</span>
+                                </label>
+                                <select asp-for="CropType" class="form-select rounded-1 bg-light border-0" id="cropSelect">
+                                    <option value="" disabled selected>Select crop...</option>
+                                    <option value="Tomato">Tomato</option>
+                                    <option value="Potato">Potato</option>
+                                    <option value="Corn">Corn</option>
+                                    <option value="Wheat">Wheat</option>
+                                    <option value="Rice">Rice</option>
+                                </select>
+                                <span asp-validation-for="CropType" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Location / Geolocation -->
+                            <div class="col-md-6">
+                                <label asp-for="City" class="form-label fw-semibold text-dark">
+                                    Location <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input asp-for="City" class="form-control rounded-start-1 bg-light border-0" id="cityInput" placeholder="e.g. London" />
+                                    <button type="button" class="btn btn-light border" id="btnGeolocation" title="Get precise location">
+                                        <i class="bi bi-geo-alt"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="City" class="text-danger small d-block"></span>
+                                <div id="geoStatus" class="small mt-1 d-none text-muted"></div>
+
+                                <!-- Hidden fields to send Lat/Lon to backend -->
+                                <input type="hidden" asp-for="Latitude" id="latInput" />
+                                <input type="hidden" asp-for="Longitude" id="lonInput" />
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid mt-5">
+                            <button type="submit" class="btn btn-dark btn-lg rounded-1 fw-semibold tracking-wide" id="submitBtn">
+                                <span id="submitText">Analyze Crop</span>
+                                <span id="submitSpinner" class="d-none">
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    Processing...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

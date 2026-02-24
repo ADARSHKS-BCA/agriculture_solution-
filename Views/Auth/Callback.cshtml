@@ -1,0 +1,75 @@
+@{
+    ViewData["Title"] = "Confirming Email...";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 text-center">
+        <div class="spinner-border text-primary text-center mb-3" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h4 id="statusMessage" class="fw-bold text-muted">Confirming your account...</h4>
+        <p class="small text-muted">Please wait while we log you in. You will be redirected momentarily.</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Supabase returns tokens in the URL hash instead of query parameters for security.
+            // Example: #access_token=123&refresh_token=456&expires_in=3600
+            const hash = window.location.hash;
+            
+            if (hash) {
+                const params = new URLSearchParams(hash.substring(1)); // Remove the #
+                
+                const accessToken = params.get('access_token');
+                const refreshToken = params.get('refresh_token');
+                const expiresIn = params.get('expires_in');
+                
+                if (accessToken) {
+                    // Send the tokens securely to our ASP.NET backend to lock them in HttpOnly Cookies
+                    fetch('@Url.Action("ProcessCallback", "Auth")', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            access_token: accessToken,
+                            refresh_token: refreshToken,
+                            expires_in: expiresIn
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Failed to process authentication tokens.');
+                        }
+                    })
+                    .then(data => {
+                        if (data && data.redirectUrl) {
+                            window.location.href = data.redirectUrl; // Redirect to Dashboard
+                        } else {
+                            window.location.href = '/Dashboard/Index';
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        document.getElementById('statusMessage').innerText = "An error occurred during sign-in. Please log in manually.";
+                        document.getElementById('statusMessage').classList.add('text-danger');
+                        
+                        setTimeout(() => {
+                           window.location.href = '/Auth/Login';
+                        }, 3000);
+                    });
+                } else {
+                    window.location.href = '/Auth/Login';
+                }
+            } else {
+                // If there is no hash fragment, maybe the user just clicked a plain link. Force login.
+                window.location.href = '/Auth/Login';
+            }
+        });
+    </script>
+}

@@ -12,12 +12,11 @@ public class CropAnalysisViewModel
     [Display(Name = "Crop Type")]
     public string CropType { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Please enter your country.")]
-    [Display(Name = "Country")]
+    [Required(ErrorMessage = "Please enter your city or use current location.")]
+    [Display(Name = "City")]
     [MaxLength(100)]
-    public string Country { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
 
-    [Display(Name = "State / Region")]
-    [MaxLength(100)]
-    public string? State { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
 }
