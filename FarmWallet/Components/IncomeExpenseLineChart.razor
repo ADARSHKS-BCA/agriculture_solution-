@@ -1,0 +1,44 @@
+@using FarmWallet.Models
+@using MudBlazor
+
+<MudPaper Elevation="3" Class="pa-4 rounded-lg" Style="height: 100%;">
+    <MudText Typo="Typo.h6" Class="mb-4">Income vs Expense Trend</MudText>
+    
+    @if (Series != null && Series.Any())
+    {
+        <MudChart T="double" ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="300px" />
+    }
+    else
+    {
+        <MudText Typo="Typo.body2" Color="Color.Surface">No data available for trend.</MudText>
+    }
+</MudPaper>
+
+@code {
+    [Parameter] public List<Transaction> Transactions { get; set; } = new();
+    
+    private List<ChartSeries<double>> Series = new List<ChartSeries<double>>();
+    private string[] XAxisLabels;
+
+    protected override void OnParametersSet()
+    {
+        var dailyData = Transactions
+            .GroupBy(t => t.Date.Date)
+            .OrderBy(g => g.Key)
+            .Select(g => new
+            {
+                DateStr = g.Key.ToString("dd MMM"),
+                Income = (double)g.Where(t => t.Type == "Income").Sum(t => t.Amount),
+                Expense = (double)g.Where(t => t.Type == "Expense").Sum(t => t.Amount)
+            })
+            .ToList();
+
+        XAxisLabels = dailyData.Select(d => d.DateStr).ToArray();
+
+        Series = new List<ChartSeries<double>>
+        {
+            new ChartSeries<double> { Name = "Income", Data = dailyData.Select(d => d.Income).ToArray() },
+            new ChartSeries<double> { Name = "Expense", Data = dailyData.Select(d => d.Expense).ToArray() }
+        };
+    }
+}

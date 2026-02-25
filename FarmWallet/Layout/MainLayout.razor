@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="FarmTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1" Color="Color.Success">
+        <MudIcon Icon="@Icons.Material.Filled.Agriculture" Class="mr-3"/>
+        <MudText Typo="Typo.h6">Farm Wallet</MudText>
+    </MudAppBar>
+
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-4 pt-4">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    MudTheme FarmTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = Colors.Green.Darken1,
+            Secondary = Colors.Amber.Darken1,
+            AppbarBackground = Colors.Green.Darken2,
+            DrawerBackground = Colors.Shades.White,
+            Background = Colors.Gray.Lighten4
+        }
+    };
+}

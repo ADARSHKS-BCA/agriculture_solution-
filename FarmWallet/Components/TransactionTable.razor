@@ -1,0 +1,37 @@
+@using FarmWallet.Models
+
+<MudPaper Elevation="3" Class="pa-4 rounded-lg">
+    <MudText Typo="Typo.h6" Class="mb-4">Recent Transactions</MudText>
+    
+    <MudTable Items="@Transactions" Striped="true" Bordered="false" Hover="true" Dense="true" Class="rounded-lg">
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Type</MudTh>
+            <MudTh>Category</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh Style="text-align: right">Amount (₹)</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.Date.ToShortDateString()</MudTd>
+            <MudTd DataLabel="Type">
+                <MudChip T="string" Color="@(context.Type == "Income" ? Color.Success : Color.Error)" Size="Size.Small">
+                    @context.Type
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="Category">@context.Category</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Amount" Style="text-align: right; font-weight: bold;">
+                <span style="@(context.Type == "Income" ? "color: var(--mud-palette-success);" : "color: var(--mud-palette-error);")">
+                    @context.Amount.ToString("C0", new System.Globalization.CultureInfo("en-IN"))
+                </span>
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{5, 10, 20}" />
+        </PagerContent>
+    </MudTable>
+</MudPaper>
+
+@code {
+    [Parameter] public List<Transaction> Transactions { get; set; } = new();
+}

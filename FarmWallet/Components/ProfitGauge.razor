@@ -1,0 +1,54 @@
+<MudPaper Elevation="3" Class="pa-4 rounded-lg d-flex flex-column align-center justify-center" Style="height: 100%;">
+    <MudText Typo="Typo.h6" Class="mb-4">Profit/Loss Gauge</MudText>
+    
+    <div style="position: relative; width: 150px; height: 150px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: conic-gradient(@GaugeColor @ProfitPercentage%, #e0e0e0 0);">
+        <div style="width: 120px; height: 120px; background-color: var(--mud-palette-background); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <MudText Typo="Typo.h5" Style="@($"color: {GaugeColor}; font-weight: bold;")">@Math.Abs(NetProfit).ToString("C0", new System.Globalization.CultureInfo("en-IN"))</MudText>
+            <MudText Typo="Typo.caption">@StatusText</MudText>
+        </div>
+    </div>
+</MudPaper>
+
+@code {
+    [Parameter] public decimal TotalIncome { get; set; }
+    [Parameter] public decimal TotalExpense { get; set; }
+
+    private decimal NetProfit => TotalIncome - TotalExpense;
+
+    private string GaugeColor
+    {
+        get
+        {
+            if (NetProfit > 0) return "var(--mud-palette-success)";
+            if (NetProfit < 0) return "var(--mud-palette-error)";
+            return "var(--mud-palette-warning)";
+        }
+    }
+
+    private string StatusText
+    {
+        get
+        {
+            if (NetProfit > 0) return "PROFIT";
+            if (NetProfit < 0) return "LOSS";
+            return "BREAK-EVEN";
+        }
+    }
+
+    private double ProfitPercentage
+    {
+        get
+        {
+            decimal total = TotalIncome + TotalExpense;
+            if (total == 0) return 0;
+            
+            // Calculate ratio to show in gauge
+            if (NetProfit > 0)
+                return (double)(TotalIncome / total) * 100;
+            else if (NetProfit < 0)
+                return (double)(TotalExpense / total) * 100;
+            
+            return 50; // Break even
+        }
+    }
+}

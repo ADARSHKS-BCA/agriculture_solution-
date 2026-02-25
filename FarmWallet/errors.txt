@@ -1,0 +1,21 @@
+﻿C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(9,8): error CS0138: A 'using namespace' directive can only be applied to namespaces; 'FarmWallet' is a type not a namespace. Consider a 'using static' directive instead [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(10,19): error CS0426: The type name 'Layout' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(9,8): error CS0138: A 'using namespace' directive can only be applied to namespaces; 'FarmWallet' is a type not a namespace. Consider a 'using static' directive instead [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(10,19): error CS0426: The type name 'Layout' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Pages\FarmWallet.razor(2,19): error CS0426: The type name 'Models' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Pages\FarmWallet.razor(3,19): error CS0426: The type name 'Services' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Pages\FarmWallet.razor(4,19): error CS0426: The type name 'Components' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(9,8): error CS0138: A 'using namespace' directive can only be applied to namespaces; 'FarmWallet' is a type not a namespace. Consider a 'using static' directive instead [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(10,19): error CS0426: The type name 'Layout' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(9,8): error CS0138: A 'using namespace' directive can only be applied to namespaces; 'FarmWallet' is a type not a namespace. Consider a 'using static' directive instead [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\_Imports.razor(10,19): error CS0426: The type name 'Layout' does not exist in the type 'FarmWallet' [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Pages\FarmWallet.razor(5,9): error CS0246: The type or namespace name 'MockTransactionService' could not be found (are you missing a using directive or an assembly reference?) [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Components\IncomeExpenseLineChart.razor(20,18): error CS0305: Using the generic type 'ChartSeries<T>' requires 1 type arguments [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Pages\FarmWallet.razor(35,18): error CS0246: The type or namespace name 'Transaction' could not be found (are you missing a using directive or an assembly reference?) [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\Layout\MainLayout.razor(21,5): error CS0246: The type or namespace name 'MudTheme' could not be found (are you missing a using directive or an assembly reference?) [C:\Users\gayat\OneDrive\Desktop\New folder (4)\FarmWallet\FarmWallet.csproj]
+
+Build FAILED.
+    62 Warning(s)
+    15 Error(s)
+
+Time Elapsed 00:00:02.44
