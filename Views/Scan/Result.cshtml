@@ -19,12 +19,22 @@
         }
 
         <!-- Result Header -->
-        <div class="text-center mb-5 fade-in">
+        <div class="text-center mb-5 fade-in position-relative">
             <div class="hero-badge mb-3">
                 <i class="bi bi-check-circle me-1"></i>Analysis Complete
             </div>
-            <h1 class="h2 fw-bold">Disease Detection Report</h1>
-            <p class="text-muted">Analysis results for your <strong>@Model.CropName</strong> sample</p>
+            <h1 class="h2 fw-bold d-inline-block align-middle mb-0">Disease Detection Report</h1>
+            
+            <div class="d-inline-flex align-items-center ms-3 align-middle bg-light rounded-pill px-3 py-1 border shadow-sm">
+                <button class="btn btn-sm btn-link text-dark p-0 me-2 text-decoration-none" id="btnReplayAudio" title="Read Aloud">
+                    <i class="bi bi-volume-up-fill fs-5"></i>
+                </button>
+                <select id="voiceSelect" class="form-select form-select-sm border-0 bg-transparent fw-medium ms-1" style="width: 140px; cursor: pointer; box-shadow: none;" title="Select Voice/Language">
+                    <option value="">Default Voice</option>
+                </select>
+            </div>
+            
+            <p class="text-muted mt-3">Analysis results for your <strong>@Model.CropName</strong> sample</p>
         </div>
 
         <div class="row g-4">
@@ -235,9 +245,104 @@
 
 @section Scripts {
     <script>
-        // Show success toast if coming from analysis
         document.addEventListener('DOMContentLoaded', () => {
+            // Show success toast if coming from analysis
             showToast('Analysis completed successfully!', 'success');
+
+            // Text-to-Speech logic
+            const synthesis = window.speechSynthesis;
+            const voiceSelect = document.getElementById('voiceSelect');
+            let voices = [];
+
+            // Build the comprehensive text including treatments
+            const orgTreatments = "@Html.Raw(string.Join(", ", Model.OrganicTreatment))";
+            const chemTreatments = "@Html.Raw(string.Join(", ", Model.ChemicalTreatment))";
+            const prevMeasures = "@Html.Raw(string.Join(", ", Model.PreventiveMeasures))";
+            
+            let textToRead = "Analysis complete for your @Model.CropName. " +
+                             "The detected disease is @Model.DiseaseName with a confidence of @Model.Confidence.ToString("F0") percent. " +
+                             "The risk level is @Model.RiskLevel. " +
+                             "@Model.RiskExplanation. ";
+            
+            if (orgTreatments && orgTreatments !== "None") {
+                textToRead += "For organic treatment, we recommend " + orgTreatments + ". ";
+            }
+            if (chemTreatments && chemTreatments !== "None") {
+                textToRead += "For chemical treatment, " + chemTreatments + ". ";
+            }
+            if (prevMeasures && prevMeasures !== "None") {
+                textToRead += "As a preventive measure, " + prevMeasures + ".";
+            }
+
+            function populateVoiceList() {
+                if (!synthesis) return;
+                voices = synthesis.getVoices();
+                if (voices.length === 0) return;
+
+                // Clear default option
+                voiceSelect.innerHTML = '';
+                
+                voices.forEach((voice, i) => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    
+                    if (voice.default) {
+                        option.textContent += ' — Default';
+                    }
+                    
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    voiceSelect.appendChild(option);
+                });
+            }
+
+            // Populate voices (Safari/Chrome handle onvoiceschanged differently)
+            populateVoiceList();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = populateVoiceList;
+            }
+
+            function readAloud() {
+                if (!synthesis) {
+                    console.warn("Text-to-speech not supported in this browser.");
+                    return;
+                }
+
+                synthesis.cancel(); // Stop playing
+
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                
+                // Assign selected voice
+                const selectedOption = voiceSelect.selectedOptions[0]?.getAttribute('data-name');
+                if (selectedOption) {
+                    const selectedVoice = voices.find(v => v.name === selectedOption);
+                    if (selectedVoice) {
+                        utterance.voice = selectedVoice;
+                        utterance.lang = selectedVoice.lang; // Override to match the voice
+                    }
+                } else {
+                    utterance.lang = 'en-US';
+                }
+                
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+
+                synthesis.speak(utterance);
+            }
+
+            // Attempt to read immediately on load
+            setTimeout(readAloud, 500);
+
+            // Bind Replay Button
+            const replayBtn = document.getElementById('btnReplayAudio');
+            if (replayBtn) {
+                replayBtn.addEventListener('click', readAloud);
+            }
+            
+            // Replay immediately if the user changes the voice
+            if (voiceSelect) {
+                voiceSelect.addEventListener('change', readAloud);
+            }
         });
     </script>
 }

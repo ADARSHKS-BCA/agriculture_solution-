@@ -19,6 +19,16 @@
 
     <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .pulse-animation {
+            animation: pulse-red 1.5s infinite;
+        }
+        @@keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Navbar -->
@@ -56,6 +66,12 @@
                             <a class="btn btn-dark btn-sm px-4 fw-semibold rounded-1" asp-controller="Auth" asp-action="Signup">Sign up</a>
                         </li>
                     }
+                    <!-- Voice Command Button -->
+                    <li class="nav-item ms-3 border-start ps-3 d-flex align-items-center">
+                        <button id="btnVoiceCommand" class="btn btn-outline-dark btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Start Voice Commands">
+                            <i id="iconVoiceCommand" class="bi bi-mic" style="font-size: 1.1rem;"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -94,6 +110,7 @@
 
     <!-- Site JS -->
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/voiceCommand.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
