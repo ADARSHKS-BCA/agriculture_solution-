@@ -1,0 +1,85 @@
+@model Agriculture.Models.ProfileUpdateViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-agri-bg-subtle text-accent rounded-circle shadow-sm mb-3 border border-light" style="width: 80px; height: 80px; background-color: var(--agri-bg-subtle);">
+                    <i class="bi bi-person-fill fs-1"></i>
+                </div>
+                <h2 class="fw-bold mb-1">Account Profile</h2>
+                <p class="text-muted">Update your username and secure your account.</p>
+            </div>
+
+            @if (TempData["ProfileSuccess"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@TempData["ProfileSuccess"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            
+            @if (TempData["ProfileError"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ProfileError"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="card border-0 shadow-sm rounded-3">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <form asp-controller="Profile" asp-action="Index" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small fw-medium"></div>
+
+                        <h5 class="fw-bold mb-3 border-bottom pb-2">Personal Details</h5>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-medium text-secondary">Email Address (Read-Only)</label>
+                            <input asp-for="Email" class="form-control bg-light" readonly />
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Username" class="form-label fw-medium text-dark">Profile Name</label>
+                            <input asp-for="Username" class="form-control" placeholder="Enter your display name" />
+                            <span asp-validation-for="Username" class="text-danger small fw-medium mt-1 d-block"></span>
+                        </div>
+
+                        <h5 class="fw-bold mb-3 border-bottom pb-2 mt-5">Security</h5>
+                        <p class="text-muted small mb-3">Leave these blank if you do not wish to change your password.</p>
+
+                        <div class="mb-3">
+                            <label asp-for="NewPassword" class="form-label fw-medium text-dark">New Password</label>
+                            <input asp-for="NewPassword" class="form-control" placeholder="••••••••" />
+                            <span asp-validation-for="NewPassword" class="text-danger small fw-medium mt-1 d-block"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="ConfirmPassword" class="form-label fw-medium text-dark">Confirm New Password</label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••••" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small fw-medium mt-1 d-block"></span>
+                        </div>
+
+                        <div class="d-grid mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary-agri btn-lg py-2 fw-semibold shadow-sm">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

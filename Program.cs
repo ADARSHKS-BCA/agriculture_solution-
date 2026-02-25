@@ -62,6 +62,7 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(url, key, s
 
 // 3. Register our internal services
 builder.Services.AddScoped<DatabaseService>();
+builder.Services.AddScoped<Agriculture.Repositories.IScanRepository, Agriculture.Repositories.ScanRepository>();
 builder.Services.AddHttpClient<Agriculture.Services.DiseaseDetectionService>();
 
 // Add services to the container.

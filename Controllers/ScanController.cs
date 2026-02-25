@@ -14,15 +14,18 @@ public class ScanController : Controller
     private readonly ILogger<ScanController> _logger;
     private readonly IWebHostEnvironment _env;
     private readonly DiseaseDetectionService _diseaseService;
+    private readonly Agriculture.Repositories.IScanRepository _scanRepository;
 
     public ScanController(
         ILogger<ScanController> logger,
         IWebHostEnvironment env,
-        DiseaseDetectionService diseaseService)
+        DiseaseDetectionService diseaseService,
+        Agriculture.Repositories.IScanRepository scanRepository)
     {
         _logger = logger;
         _env = env;
         _diseaseService = diseaseService;
+        _scanRepository = scanRepository;
     }
 
     public IActionResult Index()
@@ -85,10 +88,28 @@ public class ScanController : Controller
                 result.InferenceError = error;
             }
 
+            // Save the populated scan strictly to Supabase before rendering the results
+            var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var accessToken = Request.Cookies["sb-access-token"];
+
+            if (!string.IsNullOrEmpty(userIdStr) && Guid.TryParse(userIdStr, out var userId))
+            {
+                var scanEntity = new ScanModel
+                {
+                    UserId = userId,
+                    RiskLevel = result.RiskLevel ?? "Medium",
+                    CropType = result.CropName ?? "Unknown",
+                    ResultSummary = $"Detected {result.DiseaseName} ({result.Confidence}%)",
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _scanRepository.SaveScanAsync(scanEntity, accessToken ?? string.Empty);
+            }
+
             TempData["AnalysisResult"] = JsonSerializer.Serialize(result);
             TempData["AnalysisSuccess"] = "true";
             
-            // Redirect straight to Result without trying to save to database.
+            // Redirect straight to Result
             return RedirectToAction("Result");
         }
         catch (Exception ex)

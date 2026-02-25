@@ -6,32 +6,32 @@
 <div class="container py-5">
     <!-- Header -->
     <div class="row mb-5 justify-content-center text-center">
-        <div class="col-md-8">
-            <h1 class="fw-bold fs-3 text-dark mb-2">Crop Disease Analysis</h1>
-            <p class="text-muted">Upload a photo of your crop leaf for disease detection, risk assessment, and treatment recommendations.</p>
+        <div class="col-md-9 float-animation">
+            <h1 class="fw-bold fs-2 mb-3" style="color: var(--agri-nav-bg);">Crop Disease Analysis</h1>
+            <p class="text-muted fs-5 lh-lg" style="max-width: 700px; margin: 0 auto;">Upload a photo of your crop leaf for instant neural disease detection, risk assessment, and precise treatment recommendations.</p>
         </div>
     </div>
 
     <!-- Upload Section -->
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
-            <div class="card border border-light shadow-sm bg-white rounded-2">
+    <div class="row justify-content-center mt-3">
+        <div class="col-lg-8">
+            <div class="card bg-white shadow-lg border-0 agri-card-rounded">
                 <div class="card-body p-4 p-md-5">
                     <form asp-action="Analyze" method="post" enctype="multipart/form-data" id="analysisForm" novalidate>
                         <!-- Validation Summary -->
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
 
                         <!-- Drag & Drop Upload -->
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold text-dark">
+                        <div class="mb-5">
+                            <label class="form-label fw-bold" style="color: var(--agri-primary); font-family: 'Playfair Display', serif; font-size: 1.1rem;">
                                 Crop Leaf Image <span class="text-danger">*</span>
                             </label>
-                            <div class="drop-zone border rounded-2 bg-light text-center p-5 position-relative" id="dropZone" style="border-style: dashed !important; border-width: 2px !important;">
+                            <div class="drop-zone agri-card-rounded text-center p-5 position-relative grow-on-hover" id="dropZone" style="background-color: var(--agri-bg-subtle); border: 2px dashed var(--agri-accent) !important;">
                                 <div class="drop-zone-prompt" id="dropPrompt">
-                                    <i class="bi bi-cloud-upload fs-2 text-secondary mb-2"></i>
-                                    <p class="mb-1 fw-medium text-dark">Drag &amp; drop your image here</p>
-                                    <p class="small text-muted mb-2">or click to browse</p>
-                                    <span class="badge border text-muted fw-normal">PNG, JPG, JPEG &middot; Max 5 MB</span>
+                                    <i class="fa-solid fa-cloud-arrow-up fs-1 mb-3" style="color: var(--agri-accent);"></i>
+                                    <h5 class="mb-2 fw-bold text-dark" style="font-family: 'Playfair Display', serif;">Drag &amp; drop your image here</h5>
+                                    <p class="small text-muted mb-3">or click to browse from your device</p>
+                                    <span class="badge" style="background-color: var(--agri-primary); font-weight: 500;">PNG, JPG, JPEG &middot; Max 5 MB</span>
                                 </div>
                                 <img id="imagePreview" class="img-fluid rounded-2 mt-3 d-none mx-auto" style="max-height: 250px;" alt="Preview" />
                                 <button type="button" id="removeImage" class="btn btn-sm btn-outline-danger mt-3 d-none mx-auto">
@@ -47,9 +47,9 @@
                         <!-- Crop Selection & Location Row -->
                         <div class="row g-3 mb-4">
                             <!-- Crop Selection -->
-                            <div class="col-md-6">
-                                <label asp-for="CropType" class="form-label fw-semibold text-dark">
-                                    Crop Type <span class="text-danger">*</span>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label asp-for="CropType" class="form-label fw-bold" style="color: var(--agri-primary); font-family: 'Playfair Display', serif; font-size: 1.1rem;">
+                                    Crop Variety <span class="text-danger">*</span>
                                 </label>
                                 <select asp-for="CropType" class="form-select rounded-1 bg-light border-0" id="cropSelect">
                                     <option value="" disabled selected>Select crop...</option>
@@ -64,8 +64,8 @@
 
                             <!-- Location / Geolocation -->
                             <div class="col-md-6">
-                                <label asp-for="City" class="form-label fw-semibold text-dark">
-                                    Location <span class="text-danger">*</span>
+                                <label asp-for="City" class="form-label fw-bold" style="color: var(--agri-primary); font-family: 'Playfair Display', serif; font-size: 1.1rem;">
+                                    Farm Location <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
                                     <input asp-for="City" class="form-control rounded-start-1 bg-light border-0" id="cityInput" placeholder="e.g. London" />
@@ -83,12 +83,12 @@
                         </div>
 
                         <!-- Submit -->
-                        <div class="d-grid mt-5">
-                            <button type="submit" class="btn btn-dark btn-lg rounded-1 fw-semibold tracking-wide" id="submitBtn">
-                                <span id="submitText">Analyze Crop</span>
+                        <div class="d-grid mt-5 pt-3">
+                            <button type="submit" class="btn btn-primary-agri btn-lg rounded-pill fw-bold tracking-wide grow-on-hover shadow-lg" id="submitBtn">
+                                <span id="submitText">Initialize AI Analysis</span>
                                 <span id="submitSpinner" class="d-none">
                                     <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                                    Processing...
+                                    Executing Neural Scan...
                                 </span>
                             </button>
                         </div>

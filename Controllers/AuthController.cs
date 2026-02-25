@@ -96,7 +96,18 @@ namespace Agriculture.Controllers
 
                 var session = await _supabase.Auth.SignUp(model.Email, model.Password, signUpOptions);
 
-                // Per Requirements: DO NOT auto-login. Redirect to a success view to mandate email confirmation.
+                // If Email Confirmation is DISABLED in Supabase, we get an AccessToken immediately. Auto-login!
+                if (session != null && !string.IsNullOrEmpty(session.AccessToken))
+                {
+                    SetHttpOnlyCookie("sb-access-token", session.AccessToken, session.ExpiresIn);
+                    
+                    if (!string.IsNullOrEmpty(session.RefreshToken))
+                        SetHttpOnlyCookie("sb-refresh-token", session.RefreshToken, 604800); // 7 days
+                        
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
+                // Otherwise, email confirmation IS enforced by Supabase.
                 TempData["SignupSuccess"] = "Account created successfully. Please check your email to confirm your account before logging in.";
                 return RedirectToAction("Login");
             }

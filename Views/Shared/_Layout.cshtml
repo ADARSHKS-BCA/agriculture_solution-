@@ -9,7 +9,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    
+    <!-- FontAwesome (For organic leafy icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,32 +32,39 @@
             100% { transform: scale(1); opacity: 1; }
         }
     </style>
+
+    <!-- Page-Specific Styles -->
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body class="bg-light">
+<body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top py-3">
+    <nav class="navbar navbar-expand-lg border-bottom sticky-top py-3 navbar-dark navbar-agri" style="backdrop-filter: blur(12px); background-color: rgba(26,54,34, 0.95) !important;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center text-dark text-decoration-none" asp-controller="Home" asp-action="Index">
-                <span class="fw-bold fs-5 tracking-tight">AgriShield</span>
+            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none" asp-controller="Home" asp-action="Index">
+                <i class="fa-solid fa-leaf text-accent me-2"></i>
+                <span class="fs-4 tracking-tight">AgriShield</span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMain">
                 <ul class="navbar-nav ms-auto align-items-center gap-2 fw-medium text-secondary">
                     @if (User.Identity?.IsAuthenticated == true)
                     {
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark px-3" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            <a class="nav-link px-3" asp-controller="Scan" asp-action="Index">
+                                <i class="fa-solid fa-camera me-1"></i> Scan
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark px-3" asp-controller="Dashboard" asp-action="Index">History</a> <!-- Assuming History points to Dashboard for now -->
+                            <a class="nav-link px-3" asp-controller="FarmWallet" asp-action="Index">Farm Wallet</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark px-3" href="#">Profile</a>
+                            <a class="nav-link px-3" asp-controller="Profile" asp-action="Index">Profile</a>
                         </li>
                         <li class="nav-item ms-2">
-                            <a class="btn btn-outline-dark btn-sm px-4 fw-semibold rounded-1" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            <a class="btn btn-secondary-agri btn-sm px-4 fw-semibold rounded-1" asp-controller="Auth" asp-action="Logout">Logout</a>
                         </li>
                     }
                     else

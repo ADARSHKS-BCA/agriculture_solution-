@@ -158,10 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isScanPage && (transcript.includes('scan leaf') || transcript.includes('new scan') || transcript.includes('scan'))) {
             showToast('Voice Command', 'Navigating to New Scan...', 'primary');
             window.location.href = '/Scan/Index';
-        } else if (transcript.includes('check profit')) {
-            showToast('Voice Command: Check Profit', 'Profit check module not yet implemented.', 'info');
-        } else if (transcript.includes('add expense')) {
-            showToast('Voice Command: Add Expense', 'Expense tracker module not yet implemented.', 'info');
+        } else if (transcript.includes('check profit') || transcript.includes('add expense') || transcript.includes('wallet')) {
+            showToast('Voice Command', 'Navigating to Farm Wallet...', 'primary');
+            window.location.href = '/FarmWallet/Index';
         } else if (transcript.includes('dashboard') || transcript.includes('home')) {
             showToast('Voice Command', 'Navigating to Dashboard...', 'primary');
             window.location.href = '/Dashboard/Index';

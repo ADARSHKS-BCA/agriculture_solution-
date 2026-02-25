@@ -15,7 +15,7 @@ namespace Agriculture.Services
         public async Task SaveScanResultAsync(AnalysisHistoryModel model, string accessToken)
         {
             if (!string.IsNullOrEmpty(accessToken))
-                await _supabase.Auth.SetSession(accessToken, string.Empty);
+                await _supabase.Auth.SetSession(accessToken, "dummy-refresh-token");
 
             await _supabase.From<AnalysisHistoryModel>().Insert(model);
         }
@@ -23,7 +23,7 @@ namespace Agriculture.Services
         public async Task<List<AnalysisHistoryModel>> GetUserHistoryAsync(string accessToken)
         {
             if (!string.IsNullOrEmpty(accessToken))
-                await _supabase.Auth.SetSession(accessToken, string.Empty);
+                await _supabase.Auth.SetSession(accessToken, "dummy-refresh-token");
 
             // RLS (Row-Level Security) policies in Supabase automatically filter this 
             // down to ONLY the authenticated user's records.
@@ -36,7 +36,7 @@ namespace Agriculture.Services
         public async Task<ProfileModel?> GetUserProfileAsync(Guid userId, string accessToken)
         {
             if (!string.IsNullOrEmpty(accessToken))
-                await _supabase.Auth.SetSession(accessToken, string.Empty);
+                await _supabase.Auth.SetSession(accessToken, "dummy-refresh-token");
 
             var response = await _supabase.From<ProfileModel>()
                                           .Filter("id", Postgrest.Constants.Operator.Equals, userId.ToString())

@@ -6,11 +6,6 @@ namespace Agriculture.Models
     {
         public ProfileModel? UserProfile { get; set; }
         
-        public int TotalScans { get; set; }
-        public int HighRiskCases { get; set; }
-        public int ModerateRiskCases { get; set; }
-        public int LowRiskCases { get; set; }
-        
-        public List<AnalysisHistoryModel> RecentActivity { get; set; } = new();
+        public List<ScanModel> History { get; set; } = new();
     }
 }

@@ -3,24 +3,37 @@
    Agricultural theme: greens, earth tones, modern card design
    ================================================================== */
 
-/* ---- CSS Custom Properties ---- */
+/* ---- CSS Custom Properties (Agricultural Palette) ---- */
 :root {
-    --agri-primary: #2d6a4f;
-    --agri-primary-dark: #1b4332;
-    --agri-primary-light: #52b788;
-    --agri-accent: #40916c;
-    --agri-accent-glow: rgba(64, 145, 108, 0.15);
-    --agri-bg: #f0f5f1;
+    /* Primary / Secondary Palette */
+    --agri-nav-bg: #1A3622;
+    /* Dark Forest Green */
+    --agri-primary: #4A5D23;
+    /* Deep Olive Green */
+    --agri-primary-hover: #3B4A1C;
+    --agri-accent: #6FA354;
+    /* Natural Leaf Green */
+    --agri-accent-glow: rgba(111, 163, 84, 0.15);
+
+    /* Neutrals & Borders */
+    --agri-muted: #6B4F3A;
+    /* Muted Stem Brown */
+    --agri-bg: #EBE1D7;
+    /* Light tint of Stem Brown for global background */
+    --agri-bg-subtle: #F3ECE7;
+    /* Very light warm background */
+    --agri-border: #DBCDBF;
+    /* Lighter Stem Brown for borders */
     --agri-card-bg: #ffffff;
-    --agri-text: #1a1a2e;
+    --agri-text: #2C2C2C;
     --agri-text-muted: #6b7280;
-    --agri-border: #e2e8f0;
-    --agri-hero-gradient: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
-    --agri-shadow: 0 4px 24px rgba(45, 106, 79, 0.08);
-    --agri-shadow-hover: 0 8px 32px rgba(45, 106, 79, 0.14);
-    --radius: 16px;
-    --radius-sm: 10px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Shadows & Radii */
+    --agri-shadow: 0 4px 20px rgba(26, 54, 34, 0.06);
+    --agri-shadow-hover: 0 8px 30px rgba(26, 54, 34, 0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.25s ease-in-out;
 }
 
 /* ---- Base ---- */
@@ -28,6 +41,30 @@
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--agri-bg);
+    /* Subtle organic SVG texture overlay for the light brown background */
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.83v1.58L30 52.873 4.543 2.41l.83-.83h49.254zM30 50.413L51.627 3.24h-43.25L30 50.413z' fill='%236B4F3A' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    color: var(--agri-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Headings Upgrade - Playfair Display */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
 }
 
 body {
@@ -41,7 +78,7 @@ body {
 }
 
 .text-accent {
-    color: var(--agri-primary-light) !important;
+    color: var(--agri-accent) !important;
 }
 
 .bg-accent-subtle {
@@ -52,56 +89,139 @@ body {
     font-size: 0.75rem;
 }
 
-/* ---- Navbar ---- */
-.agri-navbar {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--agri-border);
-    padding: 0.75rem 0;
-    z-index: 1050;
+/* ---- Creative Agriculture Utilities ---- */
+
+/* Glassmorphism Frosted Panel */
+.agri-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(26, 54, 34, 0.1);
 }
 
-.agri-navbar .navbar-brand {
-    color: var(--agri-primary-dark);
-    font-size: 1.25rem;
-    letter-spacing: -0.02em;
+/* Organic Asymmetrical Containers */
+.agri-card-rounded {
+    border-radius: 24px 6px 24px 6px !important;
+    transition: all 0.35s ease;
 }
 
-.agri-navbar .nav-link {
-    color: var(--agri-text);
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: var(--transition);
-    border-radius: 8px;
-    padding: 0.5rem 0.75rem !important;
+.agri-card-rounded:hover {
+    border-radius: 6px 24px 6px 24px !important;
+    transform: translateY(-2px);
 }
 
-.agri-navbar .nav-link:hover {
-    color: var(--agri-primary);
-    background: var(--agri-accent-glow);
-}
-
-.agri-navbar .btn-light {
-    background: var(--agri-primary);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    transition: var(--transition);
-}
-
-.agri-navbar .btn-light:hover {
-    background: var(--agri-primary-dark);
-    color: #fff;
-    transform: translateY(-1px);
-}
-
-/* ---- Hero Section ---- */
-.hero-section {
-    background: var(--agri-hero-gradient);
-    padding: 4.5rem 0 3.5rem;
-    position: relative;
+/* Organic Image Wrapper */
+.agri-img-organic {
+    border-radius: 50% 20% / 10% 40% !important;
     overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Delicate Hover Grow animations */
+.grow-on-hover {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.grow-on-hover:hover {
+    transform: scale(1.03);
+}
+
+.float-animation {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* ---- Navbar Override (`.navbar-agri`) ---- */
+.navbar-agri {
+    background-color: var(--agri-nav-bg) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-agri .navbar-brand {
+    color: #ffffff;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+}
+
+.navbar-agri .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.85rem !important;
+}
+
+.navbar-agri .nav-link:hover,
+.navbar-agri .nav-link.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Navbar Toggler for Mobile */
+.navbar-agri .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-agri .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ---- Hero Section Override ---- */
+/* Completely rearchitected for the creative parallax layout */
+.hero-parallax {
+    position: relative;
+    padding: 8rem 0;
+    overflow: hidden;
+    background-color: var(--agri-nav-bg);
+    color: white;
+}
+
+.hero-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(26, 54, 34, 0.92) 0%, rgba(74, 93, 35, 0.75) 100%);
+    z-index: 1;
+}
+
+.hero-parallax>.container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-seedling-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px 40px 12px 12px;
+    padding: 2rem;
+    transition: all 0.4s ease;
+    height: 100%;
+}
+
+.hero-seedling-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--agri-accent);
 }
 
 .hero-section::before {
@@ -242,60 +362,87 @@ body {
 /* ---- Form Styles ---- */
 .form-control,
 .form-select {
-    border: 1.5px solid var(--agri-border);
+    border: 1px solid var(--agri-border);
     border-radius: var(--radius-sm);
     padding: 0.65rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    color: var(--agri-text);
+    background-color: #ffffff;
     transition: var(--transition);
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: var(--agri-primary-light);
-    box-shadow: 0 0 0 4px var(--agri-accent-glow);
+    border-color: var(--agri-accent);
+    box-shadow: 0 0 0 3px var(--agri-accent-glow);
 }
 
-/* ---- Primary Button ---- */
+/* ---- Generic Table Overrides ---- */
+.table {
+    --bs-table-color: var(--agri-text);
+    --bs-table-border-color: var(--agri-border);
+}
+
+.table thead th {
+    font-weight: 600;
+    color: var(--agri-muted);
+    border-bottom: 2px solid var(--agri-border);
+}
+
+/* ---- Primary Button Override (Deep Olive) ---- */
 .btn-primary-agri {
-    background: var(--agri-hero-gradient);
-    color: #fff;
+    background-color: var(--agri-primary);
+    color: #ffffff;
+    border: 1px solid var(--agri-primary);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    padding: 0.6rem 1.75rem;
+    transition: var(--transition);
+}
+
+.btn-primary-agri:hover,
+.btn-primary-agri:focus {
+    background-color: var(--agri-primary-hover);
+    border-color: var(--agri-primary-hover);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: var(--agri-shadow);
+}
+
+/* ---- Secondary Button Override (Stem Brown) ---- */
+.btn-secondary-agri {
+    background-color: transparent;
+    color: var(--agri-muted);
+    border: 1px solid var(--agri-muted);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    padding: 0.6rem 1.75rem;
+    transition: var(--transition);
+}
+
+.btn-secondary-agri:hover,
+.btn-secondary-agri:focus {
+    background-color: var(--agri-muted);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* ---- Danger Button Override ---- */
+.btn-danger-agri {
+    background-color: #b94a48;
+    color: #ffffff;
     border: none;
     border-radius: var(--radius-sm);
-    font-weight: 600;
-    padding: 0.85rem 2rem;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-primary-agri::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
-    opacity: 0;
+    font-weight: 500;
+    padding: 0.6rem 1.75rem;
     transition: var(--transition);
 }
 
-.btn-primary-agri:hover {
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(45, 106, 79, 0.3);
-}
-
-.btn-primary-agri:hover::after {
-    opacity: 1;
-}
-
-.btn-primary-agri:active {
-    transform: translateY(0);
-}
-
-.btn-primary-agri:disabled {
-    opacity: 0.7;
-    transform: none;
-    box-shadow: none;
-    cursor: not-allowed;
+.btn-danger-agri:hover {
+    background-color: #9a3e3c;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: var(--agri-shadow);
 }
 
 /* ---- Result Page ---- */
