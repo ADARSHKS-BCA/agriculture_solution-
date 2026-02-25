@@ -1,0 +1,56 @@
+@using FarmWallet.Models
+
+<MudGrid>
+    <MudItem xs="12" md="4">
+        <MudCard Elevation="3" Class="rounded-lg">
+            <MudCardContent Class="d-flex align-center">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowCircleDown" Color="Color.Success" Size="Size.Large" Class="mr-4"/>
+                <div>
+                    <MudText Typo="Typo.subtitle2" Color="Color.Surface">Total Income</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Success"><b>@TotalIncome.ToString("C0", new System.Globalization.CultureInfo("en-IN"))</b></MudText>
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    
+    <MudItem xs="12" md="4">
+        <MudCard Elevation="3" Class="rounded-lg">
+            <MudCardContent Class="d-flex align-center">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowCircleUp" Color="Color.Error" Size="Size.Large" Class="mr-4"/>
+                <div>
+                    <MudText Typo="Typo.subtitle2" Color="Color.Surface">Total Expense</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Error"><b>@TotalExpense.ToString("C0", new System.Globalization.CultureInfo("en-IN"))</b></MudText>
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="4">
+        <MudCard Elevation="3" Class="rounded-lg" Style="@GetNetProfitStyle()">
+            <MudCardContent Class="d-flex align-center">
+                <MudIcon Icon="@Icons.Material.Filled.AccountBalanceWallet" Color="Color.Inherit" Size="Size.Large" Class="mr-4"/>
+                <div>
+                    <MudText Typo="Typo.subtitle2" Color="Color.Inherit">Net Profit / Loss</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Inherit"><b>@NetProfit.ToString("C0", new System.Globalization.CultureInfo("en-IN"))</b></MudText>
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter] public decimal TotalIncome { get; set; }
+    [Parameter] public decimal TotalExpense { get; set; }
+    
+    private decimal NetProfit => TotalIncome - TotalExpense;
+
+    private string GetNetProfitStyle()
+    {
+        if (NetProfit > 0)
+            return "background-color: var(--mud-palette-success); color: white;";
+        if (NetProfit < 0)
+            return "background-color: var(--mud-palette-error); color: white;";
+        
+        return "background-color: var(--mud-palette-warning); color: white;";
+    }
+}

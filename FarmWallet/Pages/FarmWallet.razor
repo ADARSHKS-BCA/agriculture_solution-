@@ -1,0 +1,126 @@
+@page "/"
+@inject global::FarmWallet.Services.MockTransactionService TransactionService
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Farm Wallet Dashboard</MudText>
+
+    <!-- Filters Section -->
+    <MudPaper Class="pa-4 mb-4 d-flex align-center gap-4 border-solid border-2 mud-border-success" Elevation="2">
+        <MudText Typo="Typo.subtitle1" Color="Color.Success"><b><MudIcon Icon="@Icons.Material.Filled.FilterAlt" Class="mr-2" />Filters:</b></MudText>
+        
+        <MudSelect T="int" Label="Year" Variant="Variant.Outlined" Value="SelectedYear" ValueChanged="OnYearChanged" Margin="Margin.Dense" Style="width: 150px;">
+            @foreach (var year in AvailableYears)
+            {
+                <MudSelectItem Value="@year">@year</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="int" Label="Month" Variant="Variant.Outlined" Value="SelectedMonth" ValueChanged="OnMonthChanged" Margin="Margin.Dense" Style="width: 150px;">
+            @foreach (var month in AvailableMonths)
+            {
+                <MudSelectItem Value="@month">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)</MudSelectItem>
+            }
+        </MudSelect>
+    </MudPaper>
+
+    @if (!FilteredTransactions.Any())
+    {
+        <MudAlert Severity="Severity.Warning" Class="mb-4">No financial records available for the selected period.</MudAlert>
+    }
+    <!-- Top Summary Section -->
+    <FinancialSummaryCards TotalIncome="TotalIncome" TotalExpense="TotalExpense" />
+
+    <!-- Visualizations Section -->
+    <MudGrid Class="mt-4">
+        <MudItem xs="12" md="4">
+            <ProfitGauge TotalIncome="TotalIncome" TotalExpense="TotalExpense" />
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <ExpensePieChart Transactions="FilteredTransactions" />
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <IncomeExpenseLineChart Transactions="FilteredTransactions" />
+        </MudItem>
+    </MudGrid>
+
+    <!-- Transactions Table -->
+    <MudGrid Class="mt-4">
+        <MudItem xs="12">
+            <TransactionTable Transactions="FilteredTransactions" />
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private List<Transaction> Transactions = new();
+    private List<Transaction> FilteredTransactions = new();
+    
+    // Filtering Properties
+    private int SelectedYear { get; set; }
+    private int SelectedMonth { get; set; }
+    private List<int> AvailableYears { get; set; } = new();
+    private List<int> AvailableMonths { get; set; } = new();
+    
+    // Dynamic Calculations based on FilteredTransactions
+    private decimal TotalIncome => FilteredTransactions.Where(t => t.Type == "Income").Sum(t => t.Amount);
+    private decimal TotalExpense => FilteredTransactions.Where(t => t.Type == "Expense").Sum(t => t.Amount);
+
+    protected override void OnInitialized()
+    {
+        // 1. Fetch data
+        Transactions = TransactionService.GetTransactions();
+        
+        // 2. Populate available years dynamically (Must include current year + any year in dataset)
+        var years = Transactions.Select(t => t.Date.Year).ToHashSet();
+        years.Add(DateTime.Now.Year);
+        AvailableYears = years.OrderByDescending(y => y).ToList();
+
+        // 3. Set default selection to Current Year & Month
+        SelectedYear = DateTime.Now.Year;
+        SelectedMonth = DateTime.Now.Month;
+        
+        // 4. Initialize available months
+        UpdateAvailableMonths();
+        
+        // 5. Apply initial filter
+        ApplyFilter();
+    }
+
+    private void OnYearChanged(int newYear)
+    {
+        SelectedYear = newYear;
+
+        // If shifting from past year to current year, ensure selected month isn't in the future
+        if (SelectedYear == DateTime.Now.Year && SelectedMonth > DateTime.Now.Month)
+        {
+            SelectedMonth = DateTime.Now.Month;
+        }
+
+        UpdateAvailableMonths();
+        ApplyFilter();
+    }
+
+    private void OnMonthChanged(int newMonth)
+    {
+        SelectedMonth = newMonth;
+        ApplyFilter();
+    }
+
+    private void UpdateAvailableMonths()
+    {
+        AvailableMonths.Clear();
+        int maxMonth = (SelectedYear == DateTime.Now.Year) ? DateTime.Now.Month : 12;
+
+        for (int i = 1; i <= maxMonth; i++)
+        {
+            AvailableMonths.Add(i);
+        }
+    }
+
+    private void ApplyFilter()
+    {
+        FilteredTransactions = Transactions
+            .Where(t => t.Date.Year == SelectedYear && t.Date.Month == SelectedMonth)
+            .ToList();
+    }
+}

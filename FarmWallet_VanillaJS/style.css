@@ -1,0 +1,91 @@
+/* ===== Farm Wallet CSS Enhancements ===== */
+
+/* Green Agriculture Theme */
+:root {
+    --farm-green: #2e7d32;
+    --farm-light-green: #e8f5e9;
+    --farm-dark-green: #1b5e20;
+    --farm-earth: #8d6e63;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f4 !important;
+}
+
+.navbar.bg-success {
+    background-color: var(--farm-green) !important;
+}
+
+/* Clickable Summary Cards & hover effects */
+.summary-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border-top-width: 4px !important;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.summary-card.active-filter {
+    background-color: var(--farm-light-green);
+    border: 2px solid var(--farm-green);
+}
+
+/* Floating Add Action Button */
+.floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--farm-green);
+    color: white;
+    border: none;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 1000;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--farm-dark-green);
+}
+
+/* Table Enhancements */
+.table-hover tbody tr:hover {
+    background-color: var(--farm-light-green);
+}
+
+.action-icon {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 2px;
+    transition: opacity 0.2s;
+}
+.action-icon:hover {
+    opacity: 0.7;
+}
+
+/* Chart containers */
+.chart-container {
+    min-height: 200px;
+}
+
+/* Modal Styling */
+.modal-header.bg-success {
+    background-color: var(--farm-green) !important;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
